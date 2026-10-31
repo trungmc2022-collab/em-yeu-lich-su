@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101f35">
+<title>Em Yêu Lịch Sử – Dòng Chảy Thời Gian</title>
+<style>
+:root{--navy:#101f35;--navy2:#172d49;--gold:#d8b45b;--cream:#f7f0df;--paper:#fffaf0;--red:#a83c35;--green:#247b59;--ink:#243247;--muted:#687386;--line:#e4dac5;--shadow:0 16px 40px #07132626}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}button,input{font:inherit}button{cursor:pointer;border:0}button:focus-visible,input:focus-visible{outline:3px solid #e2b84e;outline-offset:3px}
+.topbar{background:var(--navy);color:#fff;padding:12px clamp(16px,4vw,56px);display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:3px solid var(--gold)}.brand{font-weight:900;letter-spacing:.12em}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.mini{background:#ffffff16;color:#fff;border:1px solid #ffffff38;padding:8px 12px;border-radius:999px;font-size:.85rem}
+main{max-width:1180px;margin:auto;padding:clamp(16px,3vw,34px)}.screen{display:none}.screen.active{display:block}.hero{position:relative;overflow:hidden;background:linear-gradient(125deg,#101f35,#203c5c 70%,#7d4c2d);color:#fff;border-radius:28px;padding:clamp(28px,6vw,72px);min-height:390px;box-shadow:var(--shadow);display:flex;align-items:center}.hero:after{content:"";position:absolute;right:-30px;bottom:-100px;width:360px;height:360px;border:2px solid #d8b45b55;border-radius:50%;box-shadow:0 0 0 24px #d8b45b12,0 0 0 52px #d8b45b0b}.hero-content{position:relative;z-index:1;max-width:720px}.eyebrow{color:var(--gold);font-weight:800;letter-spacing:.18em;text-transform:uppercase;font-size:.82rem}.hero h1{font-size:clamp(2.6rem,7vw,5.6rem);line-height:.98;margin:14px 0;color:#fff;letter-spacing:.02em}.hero h1 span{color:var(--gold)}.tagline{font-size:clamp(1rem,2vw,1.25rem);color:#f6e9cb;margin:0 0 28px}.activity{display:inline-flex;gap:10px;align-items:center;border:1px solid #d8b45b88;background:#d8b45b18;padding:10px 16px;border-radius:999px;color:#ffe5a3;font-weight:800;letter-spacing:.08em}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.btn{padding:13px 19px;border-radius:12px;font-weight:800;transition:.18s transform,.18s filter}.btn:hover{transform:translateY(-2px);filter:brightness(1.04)}.primary{background:var(--gold);color:#172337;box-shadow:0 7px 18px #0002}.secondary{background:#fff;color:var(--navy)}.outline{background:transparent;border:1px solid #ffffff70;color:#fff}.dark-outline{background:transparent;border:1px solid var(--line);color:var(--navy)}.danger{background:#f5dfdc;color:#8d2e28}.section-title{font-size:clamp(1.5rem,3vw,2.2rem);color:var(--navy);margin:0 0 8px}.sub{color:var(--muted);margin:0 0 22px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}.info-card,.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 6px 18px #14243a0a}.info-card .symbol{font-size:1.8rem}.info-card h3{margin:8px 0;color:var(--navy)}.info-card p{margin:0;color:var(--muted);line-height:1.55}.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.field label{display:block;font-size:.88rem;font-weight:800;margin-bottom:6px;color:var(--navy)}.field input{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px;background:#fff}.level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.level{background:var(--paper);border:2px solid var(--line);border-radius:16px;padding:18px;text-align:left;color:var(--ink)}.level:hover,.level.chosen{border-color:var(--gold);box-shadow:0 0 0 3px #d8b45b26}.level b{display:block;color:var(--navy);font-size:1.05rem;margin-bottom:6px}.level small{color:var(--muted)}
+.game-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}.game-head h2{margin:0;color:var(--navy);font-size:clamp(1.5rem,3vw,2.2rem)}.stats{display:flex;gap:9px;flex-wrap:wrap}.stat{background:var(--navy);color:#fff;padding:9px 13px;border-radius:12px;min-width:90px}.stat small{display:block;color:#d9cdaF;font-size:.72rem}.stat strong{font-size:1.1rem}.progress-wrap{height:9px;background:#e7decc;border-radius:99px;margin:18px 0 22px;overflow:hidden}.progress{height:100%;width:0;background:linear-gradient(90deg,var(--gold),#e7cf8a);transition:width .25s}.game-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(270px,.8fr);gap:18px}.board{background:#efe5d1;border:1px solid #dfd1b7;border-radius:20px;padding:18px}.board-title{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:12px}.board-title h3{margin:0;color:var(--navy)}.slots{display:grid;gap:10px}.slot{min-height:88px;background:#fffaf0;border:2px dashed #c8b995;border-radius:13px;padding:10px;display:flex;align-items:center;gap:12px;transition:.15s}.slot.over{border-color:#b58a2e;background:#fff3d2}.slot-number{flex:0 0 34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font-weight:900}.slot-placeholder{color:#9b927f;font-size:.9rem}.slot .event-card{flex:1}.slot.correct{border:2px solid #58a47d;background:#eaf6ef}.slot.wrong{border:2px solid #d47b63;background:#fff0eb}.event-card{background:#fff;border:1px solid #e3d8c4;border-left:5px solid var(--gold);border-radius:12px;padding:12px;text-align:left;box-shadow:0 3px 8px #1b2c3d0a;cursor:grab;user-select:none}.event-card:active{cursor:grabbing}.event-card.selected{outline:3px solid #d8b45b;background:#fff7df}.event-card .year{font-weight:900;color:#9b6821;font-size:1.02rem}.event-card .desc{display:block;color:#354258;font-size:.88rem;line-height:1.35;margin-top:4px}.event-card.used{opacity:.35;pointer-events:none}.pool{display:grid;gap:9px;align-content:start}.pool .event-card{cursor:grab}.pool-note{font-size:.86rem;color:var(--muted);margin:0 0 4px}.game-buttons{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.game-buttons .btn{padding:11px 14px;font-size:.9rem}.result-banner{border-radius:18px;padding:22px;background:var(--navy);color:white;margin-bottom:18px}.result-banner h2{margin:0 0 6px;color:#ffe3a0}.result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}.result-chip{background:#ffffff14;padding:12px;border-radius:12px}.result-chip small{display:block;color:#e7d8b8}.result-chip strong{font-size:1.25rem}.explain-list{display:grid;gap:10px}.explain-item{display:grid;grid-template-columns:86px 1fr;gap:12px;background:#fff;border:1px solid var(--line);padding:13px;border-radius:12px}.explain-year{font-weight:900;color:#96641d;font-size:1.05rem}.explain-item h4{margin:0 0 3px;color:var(--navy)}.explain-item p{margin:0;color:#596579;font-size:.9rem;line-height:1.45}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}th,td{text-align:left;padding:11px;border-bottom:1px solid var(--line);font-size:.9rem}th{background:var(--navy);color:#fff}tr:last-child td{border:0}.hidden{display:none!important}.modal-backdrop{position:fixed;inset:0;background:#071326a8;display:grid;place-items:center;padding:18px;z-index:20}.modal{background:var(--paper);border-radius:20px;padding:24px;max-width:650px;width:100%;max-height:85vh;overflow:auto;box-shadow:var(--shadow)}.modal h2{margin-top:0;color:var(--navy)}.modal p,.modal li{line-height:1.55}.teacher-panel{border:1px solid #d9c18a;background:#fff8e6;border-radius:14px;padding:14px;margin:16px 0}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#14263d;color:white;padding:12px 18px;border-radius:999px;z-index:30;box-shadow:var(--shadow);text-align:center;max-width:90vw}.footer{text-align:center;color:#847b69;padding:25px 10px;font-size:.85rem}.confetti{position:fixed;top:-20px;width:9px;height:14px;z-index:40;pointer-events:none;animation:fall 2.8s linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.2}}.muted{color:var(--muted)}.pill{display:inline-block;padding:5px 9px;background:#eee4d1;border-radius:999px;font-size:.78rem;font-weight:800;color:#665638}
+@media(max-width:800px){.cards,.level-grid{grid-template-columns:1fr}.game-layout{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.hero{min-height:340px}.result-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:460px){main{padding:14px}.hero{padding:25px 20px}.stat{min-width:78px}.slot{min-height:78px;padding:7px}.slot-number{flex-basis:29px;height:29px}.explain-item{grid-template-columns:70px 1fr}.topbar{align-items:flex-start}.brand{font-size:.9rem}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">✦ EM YÊU LỊCH SỬ <span style="color:var(--gold)">| 1.0</span></div>
+  <div class="top-actions">
+    <button class="mini" id="soundBtn" aria-label="Bật tắt âm thanh">♫ Âm thanh: Bật</button>
+    <button class="mini" id="teacherBtn">🔐 Đăng nhập giáo viên</button>
+  </div>
+</header>
+<main>
+<section id="home" class="screen active">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Lịch sử Việt Nam · Khối 11</div>
+      <h1>EM YÊU<br><span>LỊCH SỬ</span></h1>
+      <p class="tagline">Khám phá quá khứ – Kiến tạo tương lai</p>
+      <div class="activity">⌛ DÒNG CHẢY THỜI GIAN</div>
+      <p style="color:#f4e8d2;max-width:590px;line-height:1.6">Ai là nhà sử học tài ba? Hãy sắp xếp những dấu mốc hào hùng trong lịch sử bảo vệ Tổ quốc theo đúng trình tự thời gian.</p>
+      <div class="actions">
+        <button class="btn primary" id="startBtn">▶ BẮT ĐẦU KHÁM PHÁ</button>
+        <button class="btn outline" id="guideBtn">? HƯỚNG DẪN</button>
+        <button class="btn outline" id="knowledgeBtn">▤ GIỚI THIỆU KIẾN THỨC</button>
+        <button class="btn outline" id="submitNavBtn">📤 NỘP BÀI NHÓM</button>
+      </div>
+    </div>
+  </div>
+  <div class="cards">
+    <article class="info-card"><div class="symbol">🥁</div><h3>Khám phá lịch sử</h3><p>Nhận diện 8 mốc son trong các cuộc kháng chiến bảo vệ nền độc lập dân tộc.</p></article>
+    <article class="info-card"><div class="symbol">⏳</div><h3>Thử thách thời gian</h3><p>Ba cấp độ từ khởi động đến nhà sử học tài ba, có tính giờ và tính điểm.</p></article>
+    <article class="info-card"><div class="symbol">🏅</div><h3>Lưu dấu thành tích</h3><p>Kết quả được lưu trên trình duyệt của thiết bị đang sử dụng.</p></article>
+  </div>
+</section>
+
+<section id="setup" class="screen">
+  <h2 class="section-title">Chuẩn bị hành trình</h2><p class="sub">Nhập thông tin nhóm hoặc bỏ qua để chơi thử. Không cần cung cấp thông tin cá nhân nhạy cảm.</p>
+  <div class="panel">
+    <div class="form-grid">
+      <div class="field"><label for="playerName">Họ tên / Tên nhóm</label><input id="playerName" maxlength="50" placeholder="Ví dụ: Nhóm Sử học"></div>
+      <div class="field"><label for="playerClass">Lớp</label><input id="playerClass" maxlength="20" placeholder="Ví dụ: 11A1"></div>
+      <div class="field"><label for="playerSchool">Trường (không bắt buộc)</label><input id="playerSchool" maxlength="60" placeholder="Tên trường"></div>
+    </div>
+  </div>
+  <h3 style="color:var(--navy);margin:24px 0 12px">Chọn cấp độ thử thách</h3>
+  <div class="level-grid">
+    <button class="level chosen" data-level="1"><b>01 · KHỞI ĐỘNG</b><span>Nhận diện lịch sử</span><br><small>4 sự kiện · 60 giây · 100 điểm</small></button>
+    <button class="level" data-level="2"><b>02 · CHINH PHỤC</b><span>Dòng chảy lịch sử</span><br><small>6 sự kiện · 90 giây · 150 điểm</small></button>
+    <button class="level" data-level="3"><b>03 · NHÀ SỬ HỌC TÀI BA</b><span>Thử thách toàn diện</span><br><small>8 sự kiện · 120 giây · 200 điểm</small></button>
+  </div>
+  <div class="actions"><button class="btn primary" id="launchBtn">VÀO TRÒ CHƠI →</button><button class="btn dark-outline" data-home>← Trang chủ</button></div>
+</section>
+
+<section id="game" class="screen">
+  <div class="game-head">
+    <div><span class="pill" id="levelPill">CẤP ĐỘ 1</span><h2 id="gameTitle">Khởi động – Nhận diện lịch sử</h2><p class="sub" style="margin:5px 0 0">Sắp xếp các sự kiện từ sớm đến muộn.</p></div>
+    <div class="stats">
+      <div class="stat"><small>THỜI GIAN</small><strong id="timer">01:00</strong></div>
+      <div class="stat"><small>TIẾN ĐỘ</small><strong id="progressText">0/4</strong></div>
+      <div class="stat"><small>ĐIỂM TỐI ĐA</small><strong id="maxScore">100</strong></div>
+    </div>
+  </div>
+  <div class="progress-wrap"><div class="progress" id="progressBar"></div></div>
+  <div class="game-layout">
+    <div class="board">
+      <div class="board-title"><h3>⌛ Trục thời gian</h3><span class="pill">Sớm → Muộn</span></div>
+      <p class="pool-note">Kéo thẻ vào vị trí, hoặc chạm một thẻ rồi chạm vị trí muốn đặt.</p>
+      <div class="slots" id="slots"></div>
+      <div class="game-buttons">
+        <button class="btn primary" id="checkBtn">✓ KIỂM TRA KẾT QUẢ</button>
+        <button class="btn dark-outline" id="hintBtn">💡 GỢI Ý</button>
+        <button class="btn dark-outline" id="resetBtn">↻ LÀM LẠI</button>
+      </div>
+      <div class="game-buttons"><button class="btn dark-outline" id="homeBtn">⌂ QUAY VỀ TRANG CHỦ</button></div>
+    </div>
+    <aside class="board">
+      <div class="board-title"><h3>📜 Thẻ sự kiện</h3><span class="pill" id="poolCount">4 thẻ</span></div>
+      <p class="pool-note">Chọn thẻ bên dưới để đưa vào trục thời gian.</p>
+      <div class="pool" id="pool"></div>
+      <div class="teacher-panel hidden" id="teacherAnswer"><b>Đáp án giáo viên</b><div id="teacherAnswerList" style="margin-top:8px;font-size:.88rem;line-height:1.6"></div></div>
+    </aside>
+  </div>
+</section>
+
+<section id="result" class="screen">
+  <div class="result-banner">
+    <div class="eyebrow">KẾT QUẢ HÀNH TRÌNH</div><h2 id="resultTitle">CHÚC MỪNG NHÀ SỬ HỌC TÀI BA!</h2>
+    <p id="resultMessage" style="margin:0;color:#f6e9cb">Quá khứ là cội nguồn của hiện tại.</p>
+    <div class="result-grid">
+      <div class="result-chip"><small>ĐẶT ĐÚNG</small><strong id="correctCount">0/4</strong></div>
+      <div class="result-chip"><small>ĐIỂM SỐ</small><strong id="scoreValue">0</strong></div>
+      <div class="result-chip"><small>THỜI GIAN</small><strong id="timeValue">00:00</strong></div>
+      <div class="result-chip"><small>DANH HIỆU</small><strong id="rankValue" style="font-size:1rem">Khám phá</strong></div>
+    </div>
+  </div>
+  <div class="panel">
+    <h2 class="section-title">Giải mã lịch sử</h2><p class="sub">Dòng thời gian chính xác của 8 sự kiện – hãy ghi nhớ các mốc dễ nhầm lẫn.</p>
+    <div class="explain-list" id="explainList"></div>
+  </div>
+  <div class="panel" style="margin-top:16px">
+    <h3 style="color:var(--navy);margin-top:0">Bảng thành tích trên thiết bị</h3>
+    <div class="table-wrap"><table><thead><tr><th>Người chơi / Nhóm</th><th>Lớp</th><th>Cấp độ</th><th>Điểm</th><th>Thời gian</th><th>Danh hiệu</th></tr></thead><tbody id="scoreRows"></tbody></table></div>
+    <p class="muted" style="font-size:.82rem">Kết quả chỉ lưu trong trình duyệt và thiết bị này, không tự đồng bộ sang thiết bị khác.</p>
+  </div>
+  <div class="actions">
+    <button class="btn primary" id="playAgainBtn">↻ CHƠI LẠI</button>
+    <button class="btn dark-outline" id="otherLevelBtn">CHỌN CẤP ĐỘ KHÁC</button>
+    <button class="btn dark-outline" id="reviewBtn">XEM LẠI DÒNG CHẢY LỊCH SỬ</button>
+    <button class="btn dark-outline" data-home>TRANG CHỦ</button>
+  </div>
+</section>
+
+
+<section id="submit" class="screen">
+  <h2 class="section-title">📤 Nộp sản phẩm nhóm</h2>
+  <p class="sub">Điền thông tin nhóm và tải sản phẩm lên. Chỉ giáo viên được cấp quyền mới xem và tải được bài nộp.</p>
+  <div class="panel">
+    <form id="submissionForm">
+      <div class="form-grid">
+        <div class="field"><label for="subGroup">Tên nhóm *</label><input id="subGroup" maxlength="60" required placeholder="Ví dụ: Nhóm 1"></div>
+        <div class="field"><label for="subClass">Lớp *</label><input id="subClass" maxlength="30" required placeholder="Ví dụ: 11A1"></div>
+        <div class="field"><label for="subSchool">Trường</label><input id="subSchool" maxlength="100" placeholder="Tên trường (không bắt buộc)"></div>
+      </div>
+      <div class="field" style="margin-top:14px"><label for="subMembers">Tên thành viên *</label><input id="subMembers" maxlength="500" required placeholder="Nhập tên các thành viên, ngăn cách bằng dấu phẩy"></div>
+      <div class="field" style="margin-top:14px"><label for="subNote">Lời nhắn cho giáo viên</label><input id="subNote" maxlength="500" placeholder="Nội dung mô tả ngắn (không bắt buộc)"></div>
+      <div class="field" style="margin-top:14px"><label for="subFile">Tệp sản phẩm * (PDF, Word, PowerPoint, ảnh, video; tối đa 50 MB)</label><input id="subFile" type="file" required accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png,.webp,.mp4,.mov,.xlsx,.xls"></div>
+      <div class="actions"><button class="btn primary" id="submitFileBtn" type="submit">GỬI BÀI NỘP</button><button class="btn dark-outline" type="button" data-home>← Trang chủ</button></div>
+      <p id="submissionStatus" class="muted" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+  <div class="panel" style="margin-top:16px"><b>Lưu ý:</b> Sau khi gửi thành công, bài sẽ được lưu trên hệ thống trực tuyến. Không tải lên giấy tờ cá nhân hoặc thông tin riêng tư không liên quan đến bài học.</div>
+</section>
+
+<section id="teacherDashboard" class="screen">
+  <div class="game-head"><div><span class="pill">KHU VỰC GIÁO VIÊN</span><h2 class="section-title" style="margin-top:8px">Quản lý bài nộp</h2><p class="sub">Danh sách sản phẩm của các nhóm.</p></div><div class="actions" style="margin-top:0"><button class="btn dark-outline" id="refreshSubsBtn">↻ Làm mới</button><button class="btn danger" id="logoutTeacherBtn">Đăng xuất</button></div></div>
+  <div class="panel"><div class="table-wrap"><table><thead><tr><th>Thời gian</th><th>Nhóm</th><th>Lớp</th><th>Thành viên</th><th>Tệp</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody id="submissionRows"><tr><td colspan="7">Chưa tải dữ liệu.</td></tr></tbody></table></div><p id="teacherStatus" class="muted" role="status"></p></div>
+  <button class="btn dark-outline" style="margin-top:16px" data-home>← Trang chủ</button>
+</section>
+
+<div id="teacherLogin" class="modal-backdrop hidden" style="z-index:50">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="teacherLoginTitle">
+    <h2 id="teacherLoginTitle">🔐 Đăng nhập giáo viên</h2>
+    <p class="muted">Chỉ tài khoản giáo viên đã được cấp quyền mới truy cập được khu vực quản lý.</p>
+    <form id="teacherLoginForm">
+      <div class="field"><label for="teacherEmail">Email</label><input id="teacherEmail" type="email" autocomplete="username" required placeholder="giaovien@example.com"></div>
+      <div class="field" style="margin-top:12px"><label for="teacherPassword">Mật khẩu</label><input id="teacherPassword" type="password" autocomplete="current-password" required placeholder="Mật khẩu"></div>
+      <p id="loginStatus" class="muted" role="status"></p>
+      <div class="actions"><button class="btn primary" id="loginBtn" type="submit">ĐĂNG NHẬP</button><button class="btn dark-outline" type="button" id="closeTeacherLogin">Đóng</button></div>
+    </form>
+  </div>
+</div>
+
+<div class="footer">EM YÊU LỊCH SỬ · Khám phá quá khứ – Kiến tạo tương lai · Phiên bản 1.0</div>
+</main>
+<div id="modalRoot" class="hidden"></div><div id="toast" class="toast hidden" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+"use strict";
+const EVENTS = [
+ {id:938,year:"938",title:"Chiến thắng Bạch Đằng",short:"Ngô Quyền lãnh đạo quân dân ta chiến thắng quân Nam Hán.",person:"Ngô Quyền",place:"Sông Bạch Đằng",meaning:"Chấm dứt hơn một nghìn năm Bắc thuộc, mở ra thời kì độc lập, tự chủ lâu dài."},
+ {id:981,year:"981",title:"Kháng chiến chống Tống",short:"Lê Hoàn lãnh đạo cuộc kháng chiến chống quân Tống xâm lược.",person:"Lê Hoàn",place:"Đại Cồ Việt",meaning:"Giành thắng lợi, bảo vệ nền độc lập của Đại Cồ Việt."},
+ {id:1075,year:"1075–1077",title:"Kháng chiến chống Tống thời Lý",short:"Nhà Lý chủ động tiến công năm 1075, lập phòng tuyến sông Như Nguyệt và thắng lợi năm 1077.",person:"Lý Thường Kiệt",place:"Sông Như Nguyệt",meaning:"Đập tan cuộc xâm lược của nhà Tống, bảo vệ nền độc lập Đại Việt."},
+ {id:1258,year:"1258",title:"Kháng chiến chống Mông Cổ lần thứ nhất",short:"Quân dân nhà Trần đánh bại cuộc xâm lược của quân Mông Cổ.",person:"Vua Trần và quân dân nhà Trần",place:"Đại Việt",meaning:"Bảo vệ đất nước trước cuộc xâm lược Mông Cổ lần thứ nhất."},
+ {id:1285,year:"1285",title:"Kháng chiến chống Mông – Nguyên lần thứ hai",short:"Quân dân nhà Trần giành thắng lợi trong cuộc kháng chiến lần thứ hai.",person:"Vua Trần và quân dân nhà Trần",place:"Đại Việt",meaning:"Đánh bại cuộc xâm lược lần thứ hai của quân Mông – Nguyên."},
+ {id:1288,year:"1287–1288",title:"Kháng chiến chống Mông – Nguyên lần thứ ba",short:"Cuộc kháng chiến lần thứ ba kết thúc với chiến thắng Bạch Đằng năm 1288.",person:"Trần Hưng Đạo và quân dân nhà Trần",place:"Sông Bạch Đằng",meaning:"Đập tan cuộc xâm lược lần thứ ba, bảo vệ vững chắc nền độc lập."},
+ {id:1785,year:"1785",title:"Chiến thắng Rạch Gầm – Xoài Mút",short:"Quân Tây Sơn dưới sự chỉ huy của Nguyễn Huệ đánh tan quân Xiêm xâm lược.",person:"Nguyễn Huệ",place:"Rạch Gầm – Xoài Mút",meaning:"Đập tan quân Xiêm xâm lược, bảo vệ chủ quyền đất nước."},
+ {id:1789,year:"1789",title:"Chiến thắng Ngọc Hồi – Đống Đa",short:"Quân Tây Sơn dưới sự chỉ huy của Nguyễn Huệ đánh tan quân Thanh, giải phóng Thăng Long.",person:"Nguyễn Huệ",place:"Ngọc Hồi – Đống Đa, Thăng Long",meaning:"Đánh bại quân Thanh xâm lược, bảo vệ nền độc lập dân tộc."}
+];
+const LEVELS={1:{name:"Khởi động – Nhận diện lịch sử",count:4,time:60,max:100,ids:[938,981,1258,1789]},2:{name:"Chinh phục – Dòng chảy lịch sử",count:6,time:90,max:150,ids:[938,981,1075,1258,1288,1785]},3:{name:"Nhà sử học tài ba",count:8,time:120,max:200,ids:EVENTS.map(e=>e.id)}};
+let chosenLevel=1,activeEvents=[],poolOrder=[],placed=[],selectedId=null,checked=false,secondsLeft=60,startedAt=0,timerHandle=null,hintUsed=0,soundOn=true,teacherOn=false,player={name:"Khách khám phá",cls:"—",school:""},lastResult=null;
+const $=id=>document.getElementById(id);
+function showScreen(id){document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("active",s.id===id));window.scrollTo({top:0,behavior:"smooth"});}
+function toast(msg){$("toast").textContent=msg;$("toast").classList.remove("hidden");clearTimeout(toast.t);toast.t=setTimeout(()=>$("toast").classList.add("hidden"),2300);}
+function beep(freq=500,duration=.08){if(!soundOn)return;try{const ctx=new(window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=freq;g.gain.value=.045;o.start();g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+duration);o.stop(ctx.currentTime+duration);o.onended=()=>ctx.close();}catch(e){}}
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function fmt(s){s=Math.max(0,Math.floor(s));return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+function eventById(id){return EVENTS.find(e=>e.id===id);}
+function openModal(title,body){$("modalRoot").innerHTML=`<div class="modal-backdrop" id="backdrop"><div class="modal" role="dialog" aria-modal="true"><h2>${title}</h2>${body}<div class="actions"><button class="btn primary" id="closeModal">ĐÃ HIỂU</button></div></div></div>`;$("modalRoot").classList.remove("hidden");$("closeModal").onclick=closeModal;$("backdrop").onclick=e=>{if(e.target.id==="backdrop")closeModal();};}
+function closeModal(){$("modalRoot").classList.add("hidden");$("modalRoot").innerHTML="";}
+$("guideBtn").onclick=()=>openModal("Hướng dẫn chơi",`<ol><li>Chọn cấp độ và nhấn <b>Vào trò chơi</b>.</li><li>Kéo thẻ sự kiện vào các ô trên trục thời gian. Trên điện thoại, chạm thẻ rồi chạm ô muốn đặt.</li><li>Có thể đổi thẻ bằng cách chọn thẻ đang nằm trong ô rồi chọn ô khác.</li><li>Nhấn <b>Gợi ý</b> nếu cần (mỗi lần dùng sẽ giảm điểm).</li><li>Nhấn <b>Kiểm tra kết quả</b> để xem điểm và phần Giải mã lịch sử.</li></ol><p><b>Mẹo:</b> chú ý phân biệt Bạch Đằng năm 938 với năm 1288; ba cuộc kháng chiến Mông – Nguyên; hai cuộc kháng chiến chống Tống.</p>`);
+$("knowledgeBtn").onclick=()=>openModal("Chủ đề kiến thức",`<p><b>Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam</b> ghi dấu những cuộc đấu tranh kiên cường nhằm bảo vệ nền độc lập, chủ quyền.</p><ul><li>938: Bạch Đằng – Ngô Quyền – Nam Hán.</li><li>981: chống Tống dưới sự lãnh đạo của Lê Hoàn.</li><li>1075–1077: chống Tống thời Lý, phòng tuyến Như Nguyệt.</li><li>1258, 1285, 1287–1288: ba lần kháng chiến chống Mông Cổ, Mông – Nguyên thời Trần.</li><li>1785: Rạch Gầm – Xoài Mút – quân Xiêm.</li><li>1789: Ngọc Hồi – Đống Đa – quân Thanh.</li></ul>`);
+$("startBtn").onclick=()=>showScreen("setup");
+document.querySelectorAll("[data-level]").forEach(b=>b.onclick=()=>{chosenLevel=Number(b.dataset.level);document.querySelectorAll("[data-level]").forEach(x=>x.classList.toggle("chosen",x===b));beep(520);});
+document.querySelectorAll("[data-home]").forEach(b=>b.onclick=goHome);
+function goHome(){stopTimer();showScreen("home");}
+$("launchBtn").onclick=()=>{player={name:$("playerName").value.trim()||"Khách khám phá",cls:$("playerClass").value.trim()||"—",school:$("playerSchool").value.trim()};startGame(chosenLevel);};
+function startGame(level){stopTimer();chosenLevel=level;const cfg=LEVELS[level];activeEvents=cfg.ids.map(eventById).filter(Boolean);poolOrder=shuffle(activeEvents.map(e=>e.id));placed=Array(cfg.count).fill(null);selectedId=null;checked=false;hintUsed=0;secondsLeft=cfg.time;startedAt=Date.now();$("levelPill").textContent="CẤP ĐỘ "+level;$("gameTitle").textContent=cfg.name;$("maxScore").textContent=cfg.max;$("poolCount").textContent=cfg.count+" thẻ";$("teacherAnswer").classList.toggle("hidden",!teacherOn);renderGame();updateTimer();showScreen("game");beep(660,.12);timerHandle=setInterval(()=>{secondsLeft=Math.max(0,LEVELS[chosenLevel].time-Math.floor((Date.now()-startedAt)/1000));updateTimer();if(secondsLeft<=0){stopTimer();finishGame(true);}},250);}
+function stopTimer(){if(timerHandle){clearInterval(timerHandle);timerHandle=null;}}
+function updateTimer(){$("timer").textContent=fmt(secondsLeft);$("timer").style.color=secondsLeft<=10?"#ffb6a7":"white";}
+function renderGame(){
+ const slots=$("slots"),pool=$("pool");slots.innerHTML="";pool.innerHTML="";
+ placed.forEach((id,i)=>{const slot=document.createElement("div");slot.className="slot";slot.dataset.index=i;slot.innerHTML=`<div class="slot-number">${i+1}</div><div class="slot-placeholder">${id===null?"Thả sự kiện vào đây":""}</div>`;if(id!==null){const ev=eventById(id);slot.innerHTML=`<div class="slot-number">${i+1}</div>${cardHTML(ev)}`;slot.querySelector(".event-card").onclick=()=>{if(checked)return;selectedId=id;renderGame();};slot.querySelector(".event-card").draggable=!checked;if(checked){const correct=activeEvents[i].id===id;slot.classList.add(correct?"correct":"wrong");}}
+ slot.ondragover=e=>{if(!checked){e.preventDefault();slot.classList.add("over");}};slot.ondragleave=()=>slot.classList.remove("over");slot.ondrop=e=>{e.preventDefault();slot.classList.remove("over");const id=Number(e.dataTransfer.getData("text/plain"));if(id)putEvent(id,i);};slot.onclick=e=>{if(e.target.closest(".event-card"))return;if(selectedId!==null&&!checked)putEvent(selectedId,i);};slots.appendChild(slot);});
+ const used=placed.filter(x=>x!==null);poolOrder.map(eventById).filter(ev=>ev&&!used.includes(ev.id)).forEach(ev=>{const wrap=document.createElement("div");wrap.innerHTML=cardHTML(ev);const card=wrap.firstElementChild;card.draggable=!checked;card.classList.toggle("selected",selectedId===ev.id);card.onclick=()=>{if(checked)return;selectedId=selectedId===ev.id?null:ev.id;beep(430);renderGame();};card.ondragstart=e=>{e.dataTransfer.setData("text/plain",String(ev.id));};pool.appendChild(card);});
+ // Preserve pool order while the player is acting: render only after an interaction, and use a stable order for this round.
+ $("progressText").textContent=used.length+"/"+activeEvents.length;$("progressBar").style.width=(used.length/activeEvents.length*100)+"%";
+ $("teacherAnswerList").innerHTML=activeEvents.slice().sort((a,b)=>a.id-b.id).map((e,i)=>`${i+1}. <b>${e.year}</b> – ${e.title}`).join("<br>");
+ $("checkBtn").disabled=checked;$("checkBtn").style.opacity=checked?".5":"1";
+}
+function cardHTML(e){return `<div class="event-card ${selectedId===e.id?"selected":""}" data-event="${e.id}"><span class="year">${e.year}</span><span class="desc">${e.title}<br>${e.short}</span></div>`;}
+function putEvent(id,index){if(checked)return;const old=placed.indexOf(id);if(old!==-1)placed[old]=null;const displaced=placed[index];placed[index]=id;if(displaced!==null&&displaced!==undefined){if(old!==-1)placed[old]=displaced;}selectedId=null;beep(580);renderGame();}
+$("checkBtn").onclick=()=>{if(checked)return;if(placed.some(x=>x===null)){toast("Em hãy đặt đủ tất cả thẻ trước khi kiểm tra nhé!");return;}finishGame(false);};
+function finishGame(timeout){if(checked)return;stopTimer();checked=true;const correct=placed.filter((id,i)=>id===activeEvents.slice().sort((a,b)=>a.id-b.id)[i].id).length;const total=activeEvents.length;const cfg=LEVELS[chosenLevel];const elapsed=Math.min(cfg.time,Math.max(0,Math.floor((Date.now()-startedAt)/1000)));const accuracy=correct/total;const base=Math.round(accuracy*cfg.max);const speedBonus=timeout?0:Math.round((secondsLeft/cfg.time)*cfg.max*.12);const penalty=hintUsed* Math.round(cfg.max*.05);const score=Math.max(0,Math.min(cfg.max,base+speedBonus-penalty));const rank=accuracy===1?"Nhà sử học xuất sắc":accuracy>=.75?"Nhà sử học triển vọng":accuracy>=.5?"Người khám phá lịch sử":"Chiến binh thời gian";const message=accuracy===1?"Xuất sắc! Em chính là nhà sử học tài ba!":accuracy>=.75?"Rất tốt! Em đã nắm chắc dòng chảy lịch sử.":accuracy>=.5?"Cố gắng thêm nhé! Hãy ôn lại các mốc thời gian.":"Đừng nản lòng! Mỗi lần thử là một lần khám phá lịch sử.";lastResult={name:player.name,cls:player.cls,level:chosenLevel,score,time:fmt(elapsed),rank,correct,total,date:new Date().toISOString()};saveResult(lastResult);renderGame();$("resultTitle").textContent=accuracy===1?"CHÚC MỪNG NHÀ SỬ HỌC TÀI BA!":"HOÀN THÀNH HÀNH TRÌNH!";$("resultMessage").textContent=message+" Quá khứ là cội nguồn của hiện tại. Hiểu lịch sử để thêm tự hào dân tộc, trân trọng hòa bình và có trách nhiệm với tương lai."+(timeout?" (Đã hết giờ.)":"");$("correctCount").textContent=correct+"/"+total;$("scoreValue").textContent=score;$("timeValue").textContent=fmt(elapsed);$("rankValue").textContent=rank;renderExplanations();renderScores();showScreen("result");if(accuracy>=.75)confetti();beep(accuracy===1?880:620,.22);}
+function saveResult(r){try{const arr=JSON.parse(localStorage.getItem("emYeuLichSuScores")||"[]");arr.unshift(r);localStorage.setItem("emYeuLichSuScores",JSON.stringify(arr.slice(0,50)));}catch(e){toast("Trình duyệt không cho phép lưu kết quả.");}}
+function getScores(){try{return JSON.parse(localStorage.getItem("emYeuLichSuScores")||"[]");}catch(e){return[];}}
+function renderScores(){const rows=getScores();$("scoreRows").innerHTML=rows.length?rows.map(r=>`<tr><td>${escapeHTML(r.name)}</td><td>${escapeHTML(r.cls)}</td><td>${r.level}</td><td><b>${r.score}</b></td><td>${r.time}</td><td>${r.rank}</td></tr>`).join(""):`<tr><td colspan="6">Chưa có thành tích nào.</td></tr>`;}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function renderExplanations(){$("explainList").innerHTML=EVENTS.map(e=>`<article class="explain-item"><div class="explain-year">${e.year}</div><div><h4>${e.title}</h4><p><b>Nhân vật:</b> ${e.person}. <b>Địa danh:</b> ${e.place}. ${e.meaning}</p></div></article>`).join("");}
+$("hintBtn").onclick=()=>{if(checked)return;hintUsed++;const sorted=activeEvents.slice().sort((a,b)=>a.id-b.id);const empty=placed.findIndex(x=>x===null);if(empty===-1){toast("Các vị trí đã được điền. Hãy kiểm tra kết quả!");return;}const correctNext=sorted[empty];toast(`Gợi ý vị trí ${empty+1}: sự kiện thuộc mốc ${correctNext.year}. Dùng gợi ý sẽ bị trừ điểm.`);};
+$("resetBtn").onclick=()=>{if(checked){startGame(chosenLevel);return;}placed=Array(activeEvents.length).fill(null);selectedId=null;hintUsed=0;renderGame();toast("Đã làm lại. Đồng hồ vẫn tiếp tục chạy.");};
+$("homeBtn").onclick=goHome;
+$("playAgainBtn").onclick=()=>startGame(chosenLevel);
+$("otherLevelBtn").onclick=()=>{stopTimer();showScreen("setup");};
+$("reviewBtn").onclick=()=>{renderExplanations();openModal("Dòng chảy lịch sử – Đáp án chuẩn",`<div class="explain-list">${EVENTS.map(e=>`<article class="explain-item"><div class="explain-year">${e.year}</div><div><h4>${e.title}</h4><p>${e.short} <b>${e.person}</b> · ${e.place}. ${e.meaning}</p></div></article>`).join("")}</div>`);};
+function confetti(){for(let i=0;i<65;i++){const p=document.createElement("i");p.className="confetti";p.style.left=Math.random()*100+"vw";p.style.background=["#d8b45b","#a83c35","#247b59","#f4e7c8"][i%4];p.style.animationDelay=Math.random()*.8+"s";document.body.appendChild(p);setTimeout(()=>p.remove(),3600);}}
+$("soundBtn").onclick=()=>{soundOn=!soundOn;$("soundBtn").textContent="♫ Âm thanh: "+(soundOn?"Bật":"Tắt");if(soundOn)beep(600);};
+// Đăng nhập giáo viên được xử lý ở phần Supabase bên dưới; không bật quyền bằng nút phía trình duyệt.
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+document.addEventListener("dragstart",e=>{if(e.target.classList.contains("event-card")&&checked)e.preventDefault();});
+if(!("draggable" in document.createElement("div")))toast("Thiết bị không hỗ trợ kéo thả. Hãy dùng cách chạm thẻ rồi chạm vị trí.");
+</script>
+
+<script>
+// CẤU HÌNH SUPABASE: điền Project URL và anon/public key từ Project Settings > API.
+// Không bao giờ đặt service_role key hoặc mật khẩu giáo viên vào mã website.
+const SUPABASE_URL = "https://cuhnzodckbvmvlrvqmge.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_6imh2X-n8v0Rum-oW2G20g_5Ec2VY_r";
+const STORAGE_BUCKET = "group-submissions";
+let sb = null;
+const cloudReady = () => !!(window.supabase && SUPABASE_URL.startsWith("https://") && SUPABASE_ANON_KEY.length > 30 && !SUPABASE_URL.includes("YOUR_"));
+if (cloudReady()) sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+function cloudSetupMessage(){return "Chưa kết nối được Supabase. Hãy kiểm tra Project URL, Publishable/anon key và kết nối Internet.";}
+function readableCloudError(err){
+ const msg=String(err?.message||err?.error_description||err||"Lỗi không xác định");
+ const code=String(err?.code||"");
+ if(/Invalid login credentials/i.test(msg)) return "Email hoặc mật khẩu không đúng. Hãy kiểm tra tài khoản trong Authentication → Users.";
+ if(/Email not confirmed/i.test(msg)) return "Email giáo viên chưa được xác nhận. Hãy xác nhận email hoặc bật xác nhận phù hợp trong Supabase Auth.";
+ if(/is_teacher|function.*does not exist|schema cache/i.test(msg)) return "Đăng nhập được nhưng thiếu hàm is_teacher() hoặc hàm chưa được cấp quyền. Hãy chạy SQL cài đặt đi kèm.";
+ if(/row-level security|permission denied|not allowed/i.test(msg)) return "Supabase từ chối quyền truy cập (RLS). Hãy chạy SQL cài đặt và kiểm tra chính sách quyền.";
+ if(/bucket|storage/i.test(msg)) return "Lỗi kho lưu trữ Storage. Kiểm tra bucket group-submissions và chính sách Storage.";
+ if(/Failed to fetch|NetworkError|fetch/i.test(msg)) return "Không kết nối được Supabase. Kiểm tra Internet, Project URL và API key.";
+ return `Lỗi Supabase: ${msg}${code?` (mã ${code})`:""}`;
+}
+$("submitNavBtn").onclick=()=>{showScreen("submit");$("submissionStatus").textContent=sb?"Sẵn sàng nhận bài nộp.":cloudSetupMessage();};
+$("teacherBtn").onclick=()=>{$("teacherLogin").classList.remove("hidden");$("loginStatus").textContent=sb?"":"Chưa cấu hình dịch vụ đăng nhập. Hãy hoàn tất hướng dẫn cài đặt.";};
+$("closeTeacherLogin").onclick=()=>$("teacherLogin").classList.add("hidden");
+$("teacherLogin").addEventListener("click",e=>{if(e.target.id==="teacherLogin")$("teacherLogin").classList.add("hidden");});
+
+$("submissionForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ const status=$("submissionStatus"),btn=$("submitFileBtn");
+ if(!sb){status.textContent=cloudSetupMessage();return;}
+ const file=$("subFile").files[0];
+ if(!file){status.textContent="Bạn hãy chọn tệp sản phẩm.";return;}
+ if(file.size>50*1024*1024){status.textContent="Tệp vượt quá giới hạn 50 MB.";return;}
+ const allowed=/\.(pdf|doc|docx|ppt|pptx|jpg|jpeg|png|webp|mp4|mov|xlsx|xls)$/i;
+ if(!allowed.test(file.name)){status.textContent="Định dạng tệp chưa được hỗ trợ.";return;}
+ btn.disabled=true;btn.textContent="ĐANG TẢI LÊN…";status.textContent="Đang tải tệp lên, vui lòng không đóng trang…";
+ const cleanName=file.name.normalize("NFKD").replace(/[^a-zA-Z0-9._-]/g,"_").slice(-100);
+ const path=`${crypto.randomUUID()}-${cleanName}`;
+ try{
+   const up=await sb.storage.from(STORAGE_BUCKET).upload(path,file,{upsert:false,contentType:file.type||"application/octet-stream"});
+   if(up.error)throw up.error;
+   const row={group_name:$("subGroup").value.trim(),class_name:$("subClass").value.trim(),school:$("subSchool").value.trim()||null,members:$("subMembers").value.trim(),note:$("subNote").value.trim()||null,file_name:file.name,storage_path:path,file_size:file.size,status:"Đã nộp"};
+   const ins=await sb.from("submissions").insert(row);
+   if(ins.error){throw ins.error;}
+   status.textContent="🎉 Nộp bài thành công! Giáo viên có thể xem sản phẩm trong khu vực quản lý.";
+   $("submissionForm").reset();
+ }catch(err){
+   console.error("Lỗi nộp bài:",err);
+   // Nếu file đã tải lên nhưng thêm bản ghi thất bại, thử xóa file mồ côi.
+   try{await sb.storage.from(STORAGE_BUCKET).remove([path]);}catch(cleanErr){console.warn("Không xóa được file tải lên dở:",cleanErr);}
+   status.textContent=readableCloudError(err);
+ }
+ finally{btn.disabled=false;btn.textContent="GỬI BÀI NỘP";}
+});
+
+$("teacherLoginForm").addEventListener("submit",async e=>{
+ e.preventDefault();const status=$("loginStatus"),btn=$("loginBtn");
+ if(!sb){status.textContent=cloudSetupMessage();return;}
+ btn.disabled=true;status.textContent="Đang xác thực…";
+ try{
+   const {data,error}=await sb.auth.signInWithPassword({email:$("teacherEmail").value.trim(),password:$("teacherPassword").value});
+   if(error)throw error;
+   const check=await sb.rpc("is_teacher");
+   if(check.error) throw check.error;
+   if(check.data!==true){await sb.auth.signOut();throw new Error("Tài khoản đã đăng nhập nhưng chưa được thêm vào danh sách giáo viên (bảng teachers). Hãy thêm User ID vào bảng teachers theo hướng dẫn SQL.");}
+   $("teacherLogin").classList.add("hidden");$("teacherPassword").value="";showScreen("teacherDashboard");await loadSubmissions();
+ }catch(err){
+   console.error("Lỗi đăng nhập giáo viên:",err);
+   status.textContent=err.message?.includes("danh sách giáo viên")?err.message:readableCloudError(err);
+ }
+ finally{btn.disabled=false;}
+});
+
+async function loadSubmissions(){
+ const body=$("submissionRows"),status=$("teacherStatus");body.innerHTML='<tr><td colspan="7">Đang tải…</td></tr>';
+ if(!sb){body.innerHTML='<tr><td colspan="7">Chưa cấu hình dịch vụ.</td></tr>';return;}
+ try{
+  const {data,error}=await sb.from("submissions").select("id,created_at,group_name,class_name,members,file_name,storage_path,status").order("created_at",{ascending:false});
+  if(error)throw error;
+  if(!data.length){body.innerHTML='<tr><td colspan="7">Chưa có nhóm nào nộp bài.</td></tr>';status.textContent="";return;}
+  body.innerHTML=data.map(r=>`<tr><td>${new Date(r.created_at).toLocaleString("vi-VN")}</td><td>${escapeHTML(r.group_name)}</td><td>${escapeHTML(r.class_name)}</td><td>${escapeHTML(r.members)}</td><td>${escapeHTML(r.file_name)}</td><td><select aria-label="Trạng thái" data-status="${r.id}"><option ${r.status==="Đã nộp"?"selected":""}>Đã nộp</option><option ${r.status==="Đã kiểm tra"?"selected":""}>Đã kiểm tra</option><option ${r.status==="Cần bổ sung"?"selected":""}>Cần bổ sung</option></select></td><td><button class="btn primary" data-download="${r.id}" style="padding:8px 10px">Tải file</button></td></tr>`).join("");
+  body.querySelectorAll("[data-download]").forEach(b=>b.onclick=async()=>{const win=window.open("about:blank","_blank");const r=data.find(x=>x.id===b.dataset.download);const {data:d,error}=await sb.storage.from(STORAGE_BUCKET).createSignedUrl(r.storage_path,300);if(error){if(win)win.close();status.textContent="Không tạo được liên kết tải file.";return;}if(win)win.location=d.signedUrl;else window.location.href=d.signedUrl;});
+  body.querySelectorAll("[data-status]").forEach(sel=>sel.onchange=async()=>{const {error}=await sb.from("submissions").update({status:sel.value}).eq("id",sel.dataset.status);if(error){status.textContent="Không cập nhật được trạng thái.";await loadSubmissions();}else status.textContent="Đã cập nhật trạng thái bài nộp.";});
+  status.textContent=`Có ${data.length} bài nộp.`;
+ }catch(err){console.error("Lỗi tải danh sách bài nộp:",err);body.innerHTML='<tr><td colspan="7">Không tải được dữ liệu. Kiểm tra quyền giáo viên và chính sách RLS.</td></tr>';status.textContent=readableCloudError(err);}
+}
+$("refreshSubsBtn").onclick=loadSubmissions;
+$("logoutTeacherBtn").onclick=async()=>{if(sb)await sb.auth.signOut();showScreen("home");toast("Đã đăng xuất tài khoản giáo viên.");};
+</script>
+
+</body>
+</html>
